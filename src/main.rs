@@ -2,13 +2,13 @@ use actix_web::{web, App, HttpResponse, HttpServer};
 
 mod infrastructure;
 mod application;
+mod domain;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .configure(infrastructure::controllers::pizza::pizza_endpoints)
-            .configure(infrastructure::controllers::user::user_endpoints)
+            .configure(infrastructure::routes::pizza::pizza_routes)
             .route(
                 "/",
                 web::get().to(|| async { HttpResponse::Ok().body("/") }),

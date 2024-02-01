@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4.4.1"
+uuid = { version = "1.7.0", features = ["v4", "fast-rng", "macro-diagnostics"] }
+serde = { version = "1", features = ["derive"] }
