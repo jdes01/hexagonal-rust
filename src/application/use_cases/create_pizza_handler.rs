@@ -33,7 +33,7 @@ impl<'a> CreatePizzaHandler<'a> {
 
         let repository = Arc::clone(&self.repository);
         tokio::spawn(async move {
-            repository.save(&cloned_pizza).await;
+            repository.save(&cloned_pizza).await.unwrap();
         });
 
         Ok(pizza.uuid)
@@ -46,11 +46,9 @@ mod tests {
     use tokio::time::Duration;
     use crate::{
         application::use_cases::create_pizza_handler::{CreatePizzaHandler, CreatePizzaCommand},
-        domain::entity::pizza::Pizza,
         infrastructure::repository::pizza_repository::{InMemoryRepository, Repository},
     };
 
-    // Test para verificar que se pueda crear una pizza correctamente
     #[tokio::test]
     async fn test_create_pizza_success() {
         let repository = Arc::new(InMemoryRepository::default());
@@ -66,7 +64,6 @@ mod tests {
         assert!(result.is_ok());
     }
 
-    // Test para verificar que la pizza se guarda correctamente en el repositorio
     #[tokio::test]
     async fn test_create_pizza_repository() {
         let repository = Arc::new(InMemoryRepository::default());
@@ -77,7 +74,7 @@ mod tests {
         };
 
         let handler = CreatePizzaHandler::new(repository.clone());
-        handler.execute(command).await.unwrap(); // Ignoramos el resultado
+        handler.execute(command).await.unwrap();
 
         tokio::time::sleep(Duration::from_millis(100)).await;
 

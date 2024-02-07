@@ -1,6 +1,4 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
-use container::container::Container;
-
 
 mod infrastructure;
 mod application;
@@ -11,9 +9,6 @@ mod container;
 async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "debug");
     env_logger::init();
-
-
-    // let container = Container::new().clone();
 
     HttpServer::new(move || {
         App::new()

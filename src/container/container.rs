@@ -1,5 +1,5 @@
 use std::sync::Arc;
-use crate::infrastructure::repository::pizza_repository::{InMemoryRepository, PostgresRepository, Repository};
+use crate::infrastructure::repository::pizza_repository::{PostgresRepository, Repository};
 use crate::application::use_cases::{
     get_pizzas_handler::GetPizzasHandler,
     create_pizza_handler::CreatePizzaHandler
@@ -9,7 +9,6 @@ use lazy_static::lazy_static;
 
 pub enum RepositoryType {
     Postgres,
-    InMemory,
 }
 
 
@@ -23,7 +22,6 @@ impl<'a> Container<'a> {
     pub fn new(repository_type: RepositoryType) -> Self {
         let repository: Arc<dyn Repository + Send + Sync> = match repository_type {
             RepositoryType::Postgres => Arc::new(PostgresRepository {}),
-            RepositoryType::InMemory => Arc::new(InMemoryRepository::default()),
         };
 
         let create_pizza_handler = CreatePizzaHandler::new(repository.clone());
