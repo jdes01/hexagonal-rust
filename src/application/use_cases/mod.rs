@@ -1,2 +1,2 @@
-pub mod get_pizzas;
-pub mod create_pizza;
+pub mod get_pizzas_handler;
+pub mod create_pizza_handler;
