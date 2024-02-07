@@ -1,5 +1,6 @@
 # Hexagonal Architecture CRUD app using rust with Actix.
 
-### Dockerized ✔️
-### Clean Architecture ✔️
-### Dependency Injection Container ✔️
+- Dockerized ✔️
+- Clean Architecture ✔️
+- Dependency Injection Container ✔️
+- Postgresql Connection ✔️
