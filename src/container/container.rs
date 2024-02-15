@@ -4,7 +4,7 @@ use crate::application::use_cases::{
     get_pizzas_handler::GetPizzasHandler,
     create_pizza_handler::CreatePizzaHandler
 };
-use lazy_static::lazy_static;
+use once_cell::sync::Lazy;
 
 
 pub enum RepositoryType {
@@ -42,9 +42,7 @@ impl<'a> Container<'a> {
     }
 }
 
-lazy_static! {
-    pub static ref CONTAINER: Container<'static> = {
-        let container = Container::new(RepositoryType::Postgres);
-        container
-    };
-}
+pub static CONTAINER: Lazy<Container<'static>> = Lazy::new(|| {
+    let container = Container::new(RepositoryType::Postgres);
+    container
+});
