@@ -45,7 +45,7 @@ pub struct PostgresRepository {}
 
 impl PostgresRepository {
     async fn connect() -> tokio_postgres::Client {
-        let db_url = "postgres://username:password@localhost/my_database";
+        let db_url = "postgres://username:password@localhost:5433/my_database";
         let (client, connection) = tokio_postgres::connect(db_url, NoTls)
             .await
             .expect("Error al conectar a la base de datos");

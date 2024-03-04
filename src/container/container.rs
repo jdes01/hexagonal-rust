@@ -1,5 +1,7 @@
 use std::sync::Arc;
 use crate::infrastructure::repository::pizza_repository::{PostgresRepository, Repository};
+
+use crate::infrastructure::repository::mongo_pizza_repository::MongoRepository;
 use crate::application::use_cases::{
     get_pizzas_handler::GetPizzasHandler,
     create_pizza_handler::CreatePizzaHandler
@@ -9,6 +11,7 @@ use once_cell::sync::Lazy;
 
 pub enum RepositoryType {
     Postgres,
+    MongoDB,
 }
 
 
@@ -22,6 +25,7 @@ impl<'a> Container<'a> {
     pub fn new(repository_type: RepositoryType) -> Self {
         let repository: Arc<dyn Repository + Send + Sync> = match repository_type {
             RepositoryType::Postgres => Arc::new(PostgresRepository {}),
+            RepositoryType::MongoDB => Arc::new(MongoRepository {}),
         };
 
         let create_pizza_handler = CreatePizzaHandler::new(repository.clone());

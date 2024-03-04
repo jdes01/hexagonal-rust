@@ -9,9 +9,21 @@ services:
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - type: volume
+        source: mongo-volume-data
+        target: /data/db
+
+    ports:
+      - "27017:27017"
+
 volumes:
   postgres_data:
+  mongo-volume-data:
+
